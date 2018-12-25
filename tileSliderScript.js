@@ -94,6 +94,9 @@ window.onload = function() {
 			/*To end the momentum scrolling function if it has already not ended*/
 			clearInterval(timeIntervalMomentumScroll);
 
+			/*Resetting pixelsDifference*/
+			pixelsDifference = 0;
+
 			/*Getting the current time in milliseconds*/
 			var date = new Date();
 			previousTime = date.getTime();
