@@ -1,4 +1,4 @@
-/*https://github.com/Shadman77, https://github.com/Shadman77/HTML-Tile-Slider*/
+/*https://github.com/Shadman77, https://github.com/Shadman77/HTML-Card-Slider*/
 /*
 MIT License
 
