@@ -24,215 +24,204 @@ SOFTWARE.
 */
 window.onload = function() {
 
-	/*Test via a getter in the options object to see if the passive property is accessed*/
-	var supportsPassive = false;
-	try {
-		var opts = Object.defineProperty({}, 'passive', {
-			get: function() {
-				supportsPassive = true;
-			}
-		});
-		window.addEventListener("testPassive", null, opts);
-		window.removeEventListener("testPassive", null, opts);
-	} catch (e) {}
+    /*Test via a getter in the options object to see if the passive property is accessed*/
+    var supportsPassive = false;
+    try {
+        var opts = Object.defineProperty({}, 'passive', {
+            get: function() {
+                supportsPassive = true;
+            }
+        });
+        window.addEventListener("testPassive", null, opts);
+        window.removeEventListener("testPassive", null, opts);
+    } catch (e) {}
 
 
 
-	var pressed = false, scrollingAmount = 0;
-	var previousTime, timeDifference, timeIntervalMomentumScroll, momentumScrollIter, momentumScrollDir, momentumScrollPx;
-	var pixelsDifference, currentScrollObj;
-	var previousPosition;
-	var containers = document.getElementsByClassName('tileSliderContainer');
-	var leftButtons = document.getElementsByClassName('leftArrowButton');
-	var rightButtons  = document.getElementsByClassName('rightArrowButton');
-
-
-
-
-	/*Adding event listeners*/
-	for (var i = 0; i < containers.length; i++) {
-		containers[i].addEventListener('mousedown', startSliding, supportsPassive ? { passive: true } : false);
-		containers[i].addEventListener('touchstart', startSliding, supportsPassive ? { passive: true } : false);
-		containers[i].addEventListener('mousemove', sliding, supportsPassive ? { passive: true } : false);
-		containers[i].addEventListener('touchmove', sliding, supportsPassive ? { passive: true } : false);
-		containers[i].addEventListener('mouseup', endSliding, supportsPassive ? { passive: true } : false);
-		containers[i].addEventListener('touchend', endSliding, supportsPassive ? { passive: true } : false);
-	}
-
-	for (var i = 0; i < rightButtons.length; i++) {
-		rightButtons[i].addEventListener('click', rightButtonScroll);
-	}
-
-	for (var i = 0; i < leftButtons.length; i++) {
-		leftButtons[i].addEventListener('click', leftButtonScroll);
-	}
-
-	window.addEventListener("resize", getAmountToScroll);
+    var pressed = false,
+        scrollingAmount = 0;
+    var previousTime, timeDifference, timeIntervalMomentumScroll;
+    var pixelsDifference, currentScrollObj;
+    var previousPosition;
+    var containers = document.getElementsByClassName('tileSliderContainer');
+    var leftButtons = document.getElementsByClassName('leftArrowButton');
+    var rightButtons = document.getElementsByClassName('rightArrowButton');
 
 
 
 
-	/*Getting the amount we need to scroll using the buttons*/
-	function getAmountToScroll() {
-		/*
-		There must be at-least two tiles in the first container for this to work.
-		We calculate the amount by getting the difference of the first two tiles's horizontal start position.
-		*/
-		var x = document.getElementsByClassName('tiles')[1].offsetLeft - document.getElementsByClassName('tiles')[0].offsetLeft;
-		var y = Math.floor((document.body.clientWidth - document.getElementsByClassName('tiles')[0].offsetLeft)/x);
-		scrollingAmount = x * y;
-	}
+    /*Adding event listeners*/
+    for (var i = 0; i < containers.length; i++) {
+        containers[i].addEventListener('mousedown', startSliding, supportsPassive ? { passive: true } : false);
+        containers[i].addEventListener('touchstart', startSliding, supportsPassive ? { passive: true } : false);
+        containers[i].addEventListener('mousemove', sliding, supportsPassive ? { passive: true } : false);
+        containers[i].addEventListener('touchmove', sliding, supportsPassive ? { passive: true } : false);
+        containers[i].addEventListener('mouseup', endSliding, supportsPassive ? { passive: true } : false);
+        containers[i].addEventListener('touchend', endSliding, supportsPassive ? { passive: true } : false);
+    }
 
-	getAmountToScroll();
-	
+    for (var i = 0; i < rightButtons.length; i++) {
+        rightButtons[i].addEventListener('click', rightButtonScroll);
+    }
 
-	/*When the user pressed down the mouse button or when touch was initiated*/
-	function startSliding(event) {
-		/*If the sliding sequence already did not start*/
-		if (!pressed) {
+    for (var i = 0; i < leftButtons.length; i++) {
+        leftButtons[i].addEventListener('click', leftButtonScroll);
+    }
 
-			/*To end the momentum scrolling function if it has already not ended*/
-			clearInterval(timeIntervalMomentumScroll);
+    window.addEventListener("resize", getAmountToScroll);
 
-			/*Resetting pixelsDifference*/
-			pixelsDifference = 0;
 
-			/*Getting the current time in milliseconds*/
-			var date = new Date();
-			previousTime = date.getTime();
 
-			/*To prevent smooth scrolling*/
-			event.currentTarget.style.scrollBehavior="";
 
-			/*Prevent Element Dragging*/
-			window.ondragstart = function () { return false; };
+    /*Getting the amount we need to scroll using the buttons*/
+    function getAmountToScroll() {
+        /*
+        There must be at-least two tiles in the first container for this to work.
+        We calculate the amount by getting the difference of the first two tiles's horizontal start position.
+        */
+        var x = document.getElementsByClassName('tiles')[1].offsetLeft - document.getElementsByClassName('tiles')[0].offsetLeft;
+        var y = Math.floor((document.body.clientWidth - document.getElementsByClassName('tiles')[0].offsetLeft) / x);
+        scrollingAmount = x * y;
+    }
 
-			/*If it is a touch event instead of a mouse event*/
-			if(event.type == 'touchstart')
-				event = event.touches[0];
+    getAmountToScroll();
 
-			/*Getting start of slide position*/
-			previousPosition = event.clientX;
 
-			/*The sliding sequence has started*/
-			pressed = true;
-		}
-	}
+    /*When the user pressed down the mouse button or when touch was initiated*/
+    function startSliding(event) {
+        /*If the sliding sequence already did not start*/
+        if (!pressed) {
 
-	/*While the mouse button is pressed down or touch is continuing*/
-	function sliding(event) {
-		/*If the sliding sequence already started*/
-		if (pressed) {
+            /*To end the momentum scrolling function if it has already not ended*/
+            clearInterval(timeIntervalMomentumScroll);
 
-			/*Getting the current time in milliseconds*/
-			var date = new Date();
-			var timeMs = date.getTime();
+            pixelsDifference = 0;
 
-			var event2 = event;
+            /*Getting the current time in milliseconds*/
+            var date = new Date();
+            previousTime = date.getTime();
 
-			/*If it is a touch event instead of a mouse event*/
-			if(event.type == 'touchmove')
-				event2 = event.touches[0];
+            /*To prevent smooth scrolling*/
+            event.currentTarget.style.scrollBehavior = "";
 
-			/*Scrolling the required amount*/
-			event.currentTarget.scrollLeft = event.currentTarget.scrollLeft + previousPosition - event2.clientX;
+            /*Prevent Element Dragging*/
+            window.ondragstart = function() { return false; };
 
-			/*Calculating the difference between the current and previous cursor/touch position*/
-			if(event2.clientX != previousPosition){
-				timeDifference = timeMs - previousTime;
-				pixelsDifference = event2.clientX - previousPosition;
-			}
+            /*If it is a touch event instead of a mouse event*/
+            if (event.type == 'touchstart')
+                event = event.touches[0];
 
-			/*Storing the current cursor position and current time*/		
-			previousPosition = event2.clientX;
-			previousTime = timeMs;
-		}
-	}
+            /*Getting start of slide position*/
+            previousPosition = event.clientX;
 
-	/*When the mouse button is released down or touch is discontinued*/
-	function endSliding(event) {
+            /*The sliding sequence has started*/
+            pressed = true;
+        }
+    }
 
-		/*Setting draggable to true since we are done sliding */
-		window.ondragstart = function () { return true; };
+    /*While the mouse button is pressed down or touch is continuing*/
+    function sliding(event) {
+        /*If the sliding sequence already started*/
+        if (pressed) {
 
-		/*Sliding sequence ended*/
-		pressed = false;
+            /*Getting the current time in milliseconds*/
+            var date = new Date();
+            var timeMs = date.getTime();
 
-		/*We get 16ms from the equation floor function of 1000ms/desired frame rate(60)*/
-		/*If there are performance issues related to the momentumScroll function then reducing the frame rate to 30 may help*/
-		/*
-		If that does not work then deleting all the code from the next line to the end of this function will help,
-		but there will no longer be the momentum scrolling function 
-		*/
+            var event2 = event;
 
-		/*Storing the event generating object*/
-		currentScrollObj = event.currentTarget;
+            /*If it is a touch event instead of a mouse event*/
+            if (event.type == 'touchmove')
+                event2 = event.touches[0];
 
-		/*Calculating the required pixel difference for the given time interval of 16ms(60 frames per sec)*/
-		pixelsDifference = pixelsDifference / timeDifference * 16;
+            /*Scrolling the required amount*/
+            event.currentTarget.scrollLeft = event.currentTarget.scrollLeft + previousPosition - event2.clientX;
 
-		/*Getting the direction of scroll and the absolute pixel difference*/
-		momentumScrollIter = 0;
-		if(pixelsDifference < 0){
-			pixelsDifference *= (-1);
-			momentumScrollDir = -1;
-		}
-		else
-			momentumScrollDir = 1;
+            /*Calculating the difference between the current and previous cursor/touch position*/
+            if (event2.clientX != previousPosition) {
+                timeDifference = timeMs - previousTime;
+                pixelsDifference = event2.clientX - previousPosition;
+            }
 
-		/*Setting the momentumScroll function to run at the given time intervals*/
-		timeIntervalMomentumScroll = setInterval(momentumScroll, 16);
-	}
+            /*Storing the current cursor position and current time*/
+            previousPosition = event2.clientX;
+            previousTime = timeMs;
+        }
+    }
 
-	/*To allow momentum scroll effect*/
-	function momentumScroll() {
-		/*Determining the scroll distance for the current iteration*/
-		/*Here the constant 1 determines the rate at which scrolling slows down and maybe changes as required*/
-		momentumScrollPx = pixelsDifference - momentumScrollIter * 1;
+    /*When the mouse button is released down or touch is discontinued*/
+    function endSliding(event) {
 
-		/*Check if the scroll distance has reduced to 0 or below*/
-		if (momentumScrollPx <= 0) {
-			clearInterval(timeIntervalMomentumScroll);
-		}
-		else{
-			/*Applying the scroll to the required container*/
-			currentScrollObj.scrollLeft -= (momentumScrollPx * momentumScrollDir);
+        /*Setting draggable to true since we are done sliding */
+        window.ondragstart = function() { return true; };
 
-			/*Incrementing the iteration number*/
-			momentumScrollIter++;
-		}
-	}
+        /*Sliding sequence ended*/
+        pressed = false;
 
-	/*When the right arrow button is pressed*/
-	function rightButtonScroll(event) {
-		/*To end the momentum scrolling function if it has already not ended*/
-		clearInterval(timeIntervalMomentumScroll);
+        /*We get 16ms from the equation floor function of 1000ms/desired frame rate(60)*/
+        /*If there are performance issues related to the momentumScroll function then reducing the frame rate to 30 may help*/
+        /*
+        If that does not work then deleting all the code from the next line to the end of this function will help,
+        but there will no longer be the momentum scrolling function 
+        */
 
-		/*Getting the required container*/
-		var element = event.currentTarget.previousElementSibling;
+        /*Storing the event generating object*/
+        currentScrollObj = event.currentTarget;
 
-		/*To allow smooth scrolling when button pressed*/
-		element.style.scrollBehavior = "smooth";
+        /*Calculating the required pixel difference for the given time interval of 16ms(60 frames per sec)*/
+        pixelsDifference = Math.floor(pixelsDifference / timeDifference * 16); //so that pixelDifference is a 
 
-		/*Scrolling the required amount*/
-		element.scrollLeft = (Math.floor(element.scrollLeft / scrollingAmount) + 1) * scrollingAmount; 
-	}
+        /*Setting the momentumScroll function to run at the given time intervals*/
+        timeIntervalMomentumScroll = setInterval(momentumScroll, 16);
 
-	/*When the right arrow button is pressed*/
-	function leftButtonScroll(event) {
-		/*To end the momentum scrolling function if it has already not ended*/
-		clearInterval(timeIntervalMomentumScroll);
+    }
 
-		/*Getting the required container*/
-		var element = event.currentTarget.nextElementSibling;
+    /*To allow momentum scroll effect*/
+    function momentumScroll() {
+        /*Determining the scroll distance for the current iteration*/
+        /*The constant 0.88 determines the rate at which the speed slows down*/
+        pixelsDifference *= 0.88;
+        //console.log(pixelsDifference);
 
-		/*To allow smooth scrolling when button pressed*/
-		element.style.scrollBehavior = "smooth";
-		
-		/*Scrolling the required amount*/
-		if(element.scrollLeft % scrollingAmount == 0)
-			element.scrollLeft -= scrollingAmount;
-		else
-			element.scrollLeft = Math.floor(element.scrollLeft / scrollingAmount) * scrollingAmount;
-	}
+        /*Check if the scroll distance has reduced to 0 or below*/
+        if (pixelsDifference < 1 && pixelsDifference > -1) {
+            clearInterval(timeIntervalMomentumScroll);
+        } else {
+            /*Applying the scroll to the required container*/
+            currentScrollObj.scrollLeft -= pixelsDifference;
+        }
+    }
+
+    /*When the right arrow button is pressed*/
+    function rightButtonScroll(event) {
+        /*To end the momentum scrolling function if it has already not ended*/
+        clearInterval(timeIntervalMomentumScroll);
+
+        /*Getting the required container*/
+        var element = event.currentTarget.previousElementSibling;
+
+        /*To allow smooth scrolling when button pressed*/
+        element.style.scrollBehavior = "smooth";
+
+        /*Scrolling the required amount*/
+        element.scrollLeft = (Math.floor(element.scrollLeft / scrollingAmount) + 1) * scrollingAmount;
+    }
+
+    /*When the right arrow button is pressed*/
+    function leftButtonScroll(event) {
+        /*To end the momentum scrolling function if it has already not ended*/
+        clearInterval(timeIntervalMomentumScroll);
+
+        /*Getting the required container*/
+        var element = event.currentTarget.nextElementSibling;
+
+        /*To allow smooth scrolling when button pressed*/
+        element.style.scrollBehavior = "smooth";
+
+        /*Scrolling the required amount*/
+        if (element.scrollLeft % scrollingAmount == 0)
+            element.scrollLeft -= scrollingAmount;
+        else
+            element.scrollLeft = Math.floor(element.scrollLeft / scrollingAmount) * scrollingAmount;
+    }
 };
