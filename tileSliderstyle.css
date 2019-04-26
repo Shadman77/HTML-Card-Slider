@@ -23,16 +23,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 body{
-	margin: 0px;/*Upto the user*/
-	padding: 0px;/*Upto the user*/
+	/*All upto the user*/
+	margin: 0px;
+	padding: 0px;
+	background-color: #67daff;
 }
 .parentSliderContainer{/*For housing the buttons and tileSliderContainer*/
 	position: relative;/*Required for button placement*/
+	/*The following three parameters are upto the user*/
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 .tileSliderContainer{
 	padding-left: 20px;/*Depends on the size of the buttons but is as required by the user*/
 	padding-right: 20px;/*Depends on the size of the buttons but is as required by the user*/
-	background-color: orange;/*Upto the user*/
+	background-color: #03a9f4;/*Upto the user*/
 	white-space: nowrap;/*To allow the tiles to line up horizontally one after another*/
 	overflow-x: hidden;/*To hide the scrollbar*/
 	width: calc(100%-40px);/*for margins of the children*/
@@ -45,13 +50,18 @@ body{
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
-.tiles{/*All properties are upto the user*/
+.tiles{
+	/*All properties are upto the user*/
 	height: 20vw;
 	width: 20vw;
-	background-color: blue;
-	margin: 2vw;
-	display: inline-block;
+	font-size: 10vw;
+	background-color: #007ac1;
 	color: white;
+	margin: 2vw;
+	display: inline-flex;
+	justify-content: center;
+ 	flex-direction: column;
+  	text-align: center;
 }
 .leftArrowButton{
 	font-size: 30px;/*Upto the user*/
@@ -81,4 +91,39 @@ body{
 }
 .parentSliderContainer button::-moz-focus-inner {
   border: 0;/*Prevent dotted outline when clicked in firefox*/
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	.rightArrowButton, .leftArrowButton{
+		width: 8vw;
+	}
+} 
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+	.rightArrowButton, .leftArrowButton{
+		width: 7vw;
+	}
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+	.rightArrowButton, .leftArrowButton{
+		width: 5vw;
+	}
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	.rightArrowButton, .leftArrowButton{
+		width: 4vw;
+	}
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+	.rightArrowButton, .leftArrowButton{
+		width: 4vw;
+	}
 }
