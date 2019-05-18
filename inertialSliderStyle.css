@@ -1,0 +1,173 @@
+/*https://github.com/Shadman77, https://github.com/Shadman77/HTML-Card-Slider*/
+/*
+MIT License
+
+Copyright (c) 2018 Shadman Saif Anonno
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+body{
+    background-color: #2196F3;
+}
+
+.parentSliderContainer {
+    /*For housing the buttons and tileSliderContainer*/
+    position: relative;
+    /*Required for button placement*/
+    /*The following three parameters are upto the user*/
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.tileSliderContainer {
+    padding-left: 20px;
+    /*Depends on the size of the buttons but is as required by the user*/
+    padding-right: 20px;
+    /*Depends on the size of the buttons but is as required by the user*/
+    white-space: nowrap;
+    /*To allow the tiles to line up horizontally one after another*/
+    overflow-x: hidden;
+    /*To hide the scrollbar*/
+    width: calc(100%-40px);
+    /*for margins of the children*/
+
+    /*Requered to prevent element selection when sliding*/
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+.tiles {
+    /*All properties are upto the user*/
+    /*height: 20vw;
+	width: 20vw;
+	*/
+    height: 200px;
+    width: 200px;
+    font-size: 100px;
+    background-color: white;
+    color: #2196f3;
+    margin: 2vw;
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.leftArrowButton {
+    font-size: 30px;
+    /*Upto the user*/
+    color: white;
+    /*Upto the user*/
+    position: absolute;
+    /*For positioning the button*/
+    height: 100%;
+    /*For vertically aligning the arrow*/
+    left: 0;
+    /*For positioning the button*/
+    top: 0;
+    /*For positioning the button*/
+    background-color: Transparent;
+    /*Upto the user but recommended to be not changed*/
+    border: none;
+    /*Upto the user but recommended to be not changed*/
+    cursor: pointer;
+    /*Upto the user but recommended to be not changed*/
+    overflow: hidden;
+    /*Upto the user but recommended to be not changed*/
+    outline: none;
+    /*Upto the user but recommended to be not changed*/
+}
+
+.leftArrowButton:focus {
+    outline: none;
+}
+
+.leftArrowButton:active {
+    opacity: 0.5;
+}
+
+.rightArrowButton {
+    font-size: 30px;
+    /*Upto the user*/
+    color: white;
+    /*Upto the user*/
+    position: absolute;
+    /*For positioning the button*/
+    height: 100%;
+    /*For vertically aligning the arrow*/
+    right: 0;
+    /*For positioning the button*/
+    top: 0;
+    /*For positioning the button*/
+    background-color: Transparent;
+    /*Upto the user but recommended to be not changed*/
+    border: none;
+    /*Upto the user but recommended to be not changed*/
+    cursor: pointer;
+    /*Upto the user but recommended to be not changed*/
+    overflow: hidden;
+    /*Upto the user but recommended to be not changed*/
+    outline: none;
+    /*Upto the user but recommended to be not changed*/
+}
+
+.rightArrowButton,
+.leftArrowButton {
+    width: 50px;
+}
+
+.rightArrowButton:focus {
+    outline: none;
+}
+
+.rightArrowButton:active {
+    opacity: 0.5;
+}
+
+.parentSliderContainer button::-moz-focus-inner {
+    border: 0;
+    /*Prevent dotted outline when clicked in firefox*/
+}
+
+/*For responsive arrows*/
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
