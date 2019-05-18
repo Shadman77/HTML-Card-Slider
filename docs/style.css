@@ -1,0 +1,312 @@
+html{
+    scroll-behavior: smooth;
+}
+/*Body*/
+body {
+    visibility: hidden;
+}
+
+/*Navbar*/
+.navbar {
+    background-color: #2196f3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 100;
+}
+
+.nav-link-custom {
+    color: black;
+    padding: 5px 15px;
+    margin: 5px 5px;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.nav-link-custom:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #6ec6ff;
+}
+
+/*Banner*/
+.bannerContainer {
+    position: relative;
+    top: 0;
+    width: 100%;
+    background-color: #6ec6ff;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.bannerTxtContainer {
+    padding: 20px;
+    width: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.bannerTxtContainer>p {
+    margin-bottom: 10px;
+}
+
+.bannerImgContainer {
+    padding: 20px;
+    width: 100%;
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.bannerLinkContainer {
+    text-align: center;
+    margin-bottom: 0px;
+    font-size: 120%;
+}
+
+.bannerDownloadLink {
+    display: inline-block;
+    width: 130px;
+    color: #6ec6ff;
+    padding: 5px 15px;
+    margin: 5px 5px;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 25px;
+    z-index: 10;
+}
+
+.bannerDownloadLink:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #2196f3;
+    border: 2px solid #2196f3;
+}
+
+.bannerDocsLink {
+    display: inline-block;
+    width: 130px;
+    color: white;
+    padding: 5px 15px;
+    margin: 5px 5px;
+    border: 2px solid white;
+    border-radius: 25px;
+    z-index: 10;
+}
+
+.bannerDocsLink:hover {
+    color: #6ec6ff;
+    text-decoration: none;
+    background-color: white;
+    border: 2px solid white;
+}
+
+.downArrowBtnContainer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.downArrowBtn {
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+    -webkit-animation-name: blink;
+    /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 2s;
+    /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite;
+    /* Safari 4.0 - 8.0 */
+    animation-name: blink;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.downArrowBtn:hover {
+    color: #2196f3;
+}
+
+.downArrowBtn:focus {
+    outline: none;
+}
+
+/*Demo/Jumbotron*/
+.demoContainer {
+    text-align: center;
+    margin: 0px 0px 20px 0px;
+}
+
+/*Messages Container*/
+.messagesContainer {
+    text-align: center;
+    padding: 30px;
+}
+
+.messagesHr {
+    background-color: #6ec6ff;
+}
+
+.messagesHead {
+    color: #2196f3;
+}
+
+/*Footer*/
+.footerContainer {
+    padding: 20px;
+    background-color: #2196f3;
+}
+
+.footerDesk>p {
+    margin: 0px;
+    color: white;
+}
+
+.footerMob {
+    display: none;
+}
+
+.footerMob>p {
+    margin: 0px;
+    color: white;
+    text-align: center;
+}
+
+.footerLink {
+    color: white;
+}
+
+.footerLink:hover {
+    color: white;
+}
+
+/*Animations*/
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Standard syntax */
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/*---Media Queries --*/
+@media (max-width: 1200px) {
+    /*lg*/
+
+}
+
+@media (max-width: 992px) {
+
+    /*md*/
+    /*Banner*/
+    .bannerContainer {
+        /*padding: 20px;*/
+    }
+
+    .bannerImgContainer {
+        display: none;
+    }
+
+    .bannerTxtContainer {
+        background-image: url("img/bannerOpac.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        padding-bottom: 20px;
+    }
+
+    .bannerLinkContainer {
+        margin-top: 5px;
+    }
+
+    .downArrowBtn {
+        font-size: 40px;
+    }
+
+    /*Navbar*/
+    .nav-item {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /*sm*/
+    .mainHeading {
+        font-size: 35px;
+    }
+
+    .bannerLinkContainer {
+        margin-top: 0px;
+    }
+
+    .bannerTxtContainer {
+        padding-bottom: 20px;
+    }
+
+    .footerMob {
+        display: inline-block;
+    }
+
+    .footerDesk {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+
+    /*xs*/
+    .mainHeading {
+        font-size: 30px;
+    }
+}
+
+/*
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/

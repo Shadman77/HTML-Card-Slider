@@ -1,0 +1,6 @@
+lightweught
+responsive
+touch support
+multi broser supprt
+independent
+fully customizable(MIT)
