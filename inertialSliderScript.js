@@ -83,6 +83,15 @@ window.onload = function () {
         var x = document.getElementsByClassName('tiles')[1].offsetLeft - document.getElementsByClassName('tiles')[0].offsetLeft;
         var y = Math.floor((document.body.clientWidth - document.getElementsByClassName('tiles')[0].offsetLeft) / x);
         scrollingAmount = x * y;
+
+        /**
+         * If the size of a single card/tile is larger than the width then
+         * scroll amount = difference between the offset of two adjacent cards/tiles
+         */
+        if(scrollingAmount == 0)
+        {
+            scrollingAmount = x;
+        }
     }
 
     getAmountToScroll();
